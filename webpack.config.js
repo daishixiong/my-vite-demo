@@ -6,8 +6,9 @@ const TerserPlugin = require('terser-webpack-plugin');
 module.exports = {
     mode: 'production',
     entry: "./src/main.ts",
+    devtool: 'inline-source-map',
     output: {
-        path: path.resolve(__dirname, 'dist/webpack-build'),
+        path: path.resolve(__dirname, 'dist/'),
         filename: '[name].[contenthash].bundle.js',
         // publicPath: 'https://cdn.example.com/assets/[fullhash]/'
         publicPath: '/',
@@ -27,7 +28,20 @@ module.exports = {
                   }
                 ]
             },
-            { test: /\.ts$/, use: 'ts-loader' },
+            {
+                test: /\.less$/,
+                use: [
+                    { loader: 'style-loader' },
+                    {
+                      loader: 'css-loader',
+                      options: {
+                        modules: true
+                      }
+                    },
+                    { loader: 'less-loader' }
+                  ]
+            },
+            { test: /\.tsx?$/, use: 'ts-loader', exclude: /node_modules/, },
             {
                 test: /\.(png|jpg|svg|gif)$/,
                 type: 'asset/resource',

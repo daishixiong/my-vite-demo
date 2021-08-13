@@ -2,9 +2,15 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
+    "lint": "eslint ./src --ext .vue,.ts,.js",
+    "lint:style": "stylelint \"./**/*.{css,scss,sass,vue}\"",
+    "lint:all": "npm run lint:fix && npm run lint:style",
+    "lint:styleFix": "stylelint \"./**/*.{css,scss,sass,vue}\" --fix",
+    "lint:fix": "eslint ./src --ext .vue,.ts,.js --fix",
+    "lint:allFix": "npm run lint:fix && npm run lint:styleFix",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
-    "build:webpack": "webpack",
+    "build:webpack": "rimraf ./dist && webpack",
     "prepare": "husky install"
   },
   "husky": {
@@ -20,13 +26,7 @@
     ]
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.29.1",
-    "@typescript-eslint/parser": "^4.29.1",
     "css-loader": "^6.1.0",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.24.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.3.1",
     "style-loader": "^3.1.0",
     "terser-webpack-plugin": "^5.1.4",
     "ts-loader": "^9.2.3",
@@ -36,11 +36,21 @@
     "webpack-cli": "^4.7.2"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "@typescript-eslint/parser": "^4.29.1",
     "@vitejs/plugin-vue": "^1.2.3",
     "@vue/compiler-sfc": "^3.0.5",
     "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.24.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-vue": "^7.16.0",
     "husky": "^7.0.0",
+    "less": "^4.1.1",
+    "less-loader": "^10.0.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
     "typescript": "^4.3.2",
     "vite": "^2.3.8",
     "vue-tsc": "^0.0.24"
