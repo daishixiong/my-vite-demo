@@ -112,7 +112,6 @@ module.exports = {
     plugins: [
         new webpack.ProgressPlugin(),
         new VueLoaderPlugin()
-        // new HtmlWebpackPlugin({ template: './src/index.html' })
     ],
     parallelism: 1, // number
     // limit the number of parallel processed modules
