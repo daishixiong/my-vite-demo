@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack'); // 访问内置的插件
-const { VueLoaderPlugin } = require('vue-loader')
+const { VueLoaderPlugin } = require('vue-loader');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
@@ -10,7 +11,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist/'),
         filename: '[name].[contenthash].bundle.js',
-        // publicPath: 'https://cdn.example.com/assets/[fullhash]/'
+        // publicPath: 'https://cdn.example.com',
         publicPath: '/',
         chunkFilename: "[contenthash].js",
     },
@@ -111,7 +112,19 @@ module.exports = {
     },
     plugins: [
         new webpack.ProgressPlugin(),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new HtmlWebpackPlugin({
+            filename: "index.html",
+            template: "index.html",
+            inject: true,
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeAttributeQuotes: true
+            },
+            // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+            chunksSortMode: 'manual' // auto
+        })
     ],
     parallelism: 1, // number
     // limit the number of parallel processed modules
